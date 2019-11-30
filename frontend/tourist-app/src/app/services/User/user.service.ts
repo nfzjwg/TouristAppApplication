@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpResponse, HttpErrorResponse } from "@angular/common/http";
 import { User } from 'src/app/classes/User';
 import { LocalStorageService } from '../Local Storage/local-storage.service';
+import { DebugHelper } from 'protractor/built/debugger';
 
 export const httpOptions = {
   headers: new HttpHeaders({
@@ -18,11 +19,20 @@ export class UserService {
   token : string = null;
   user : User = null;
   users : User[]
+  helper : Map<String,String>
   private url = "http://localhost:8080/users";
   constructor(
     private http: HttpClient,
     private localStorage: LocalStorageService
   ){}
+  loginWithFacebook(){
+    return this.http.get("http://localhost:8080/facebook").toPromise()      
+  }
+  redirectAfterLogin(){
+    this.loginWithFacebook().then(()=>{
+      this.http.get("http://localhost:8080/users/user").toPromise()
+    });
+  }
 
   async register(username : string, password : string, email : string, role: string){
     console.log(username, password,role,email);

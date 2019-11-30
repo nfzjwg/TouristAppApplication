@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("/cars")
 @CrossOrigin
+
 @RestController
 public class CarsController{
 

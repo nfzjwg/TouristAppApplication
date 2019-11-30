@@ -1,16 +1,21 @@
 package com.program.demo.controller;
 
+import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import com.program.demo.model.User;
+import com.program.demo.model.User.Role;
 import com.program.demo.repositories.UserRepository;
-import com.program.demo.security.AuthenticatedUser;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,16 +30,43 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Controller class for the User entity.
  */
-@RequestMapping("/users")
 @CrossOrigin
 @RestController
+@RequestMapping("/users")
 public class UserController {
 
   @Autowired private UserRepository userRepository;
 
-  @Autowired private BCryptPasswordEncoder passwordEncoder;
 
-  @Autowired private AuthenticatedUser authenticatedUser;
+	@RequestMapping("/user")
+	public Map<String,String> user(OAuth2Authentication auth2Authentication) {
+    Map<String,String> details = (Map<String,String>) auth2Authentication.getUserAuthentication().getDetails();
+    ;
+    Set<String> keys = details.keySet();
+    Object[] keyArray = keys.toArray();
+    String id =  details.get(keyArray[0]);
+    String username= details.get(keyArray[1]);
+    String email = details.get(keyArray[2]);
+    Role role = Role.ROLE_GUEST;
+    System.out.println(id);
+    System.out.println(username);
+    System.out.println(email);
+    Optional optionaluser = userRepository.findByUsername(username);
+    if(optionaluser.isPresent()){
+    }else{
+      System.out.println("user is not present");
+      User newUser = new User();
+      newUser.setUsername(username);
+      newUser.setClientID(id);
+      newUser.setEmail(email);
+      newUser.setRole(role);
+      register(newUser);
+      
+    }
+
+    return details;
+	}
+
 
   /**
    * Returns all the registerd users.
@@ -72,18 +104,18 @@ public class UserController {
     if (optionalAppUser.isPresent()) {
       return ResponseEntity.badRequest().build();
     }
-    user.setPassword(passwordEncoder.encode(user.getPassword()));
     newUser=userRepository.saveAndFlush(user);
+    System.out.println("user saved");
     return  ResponseEntity.ok(newUser);
   }
   /**
    * Logs in the user.
    * @return ResponseEntity
    */
-  @PostMapping("login")
+  /*@PostMapping("login")
   public ResponseEntity<User> login() {
     return ResponseEntity.ok(authenticatedUser.getUser());
-  }
+  }*/
 
   @PutMapping("/{id}")
   public ResponseEntity<User> addRate(
@@ -94,7 +126,7 @@ public class UserController {
       User oldUser = optionalUser.get();
       user.setId(oldUser.getId());
       user.setUsername(oldUser.getUsername());
-      user.setPassword(oldUser.getPassword());
+      user.setClientID(oldUser.getClientID());
       user.setEmail(oldUser.getEmail());
       user.setRole(oldUser.getRole());
       user.setRatingNumber(oldUser.getRatingNumber()+1);

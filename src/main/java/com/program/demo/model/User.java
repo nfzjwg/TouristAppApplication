@@ -39,11 +39,11 @@ public class User {
 	@Column(name = "id", updatable = false, nullable = false)
 	private int id;
   
+  @Column(name = "clientID", nullable = false)
+  private String clientID;
+
   @Column(name = "username", nullable = false)
   private String username;
-
-  @Column(name = "password", nullable = false)
-  private String password;
 
   @Column(name = "email", nullable = false)
   private String email;
@@ -93,8 +93,8 @@ public class User {
     public String getUsername(){
       return this.username;
     }
-    public String getPassword(){
-      return this.password;
+    public String getClientID(){
+      return this.clientID;
     }
     public String getEmail(){
       return this.email;
@@ -155,8 +155,8 @@ public class User {
     public void setEmail(String other){
       this.email = other;
     }
-    public void setPassword(String other){
-      this.password= other;
+    public void setClientID(String other){
+      this.clientID= other;
     }
 
     public void setRatingNumber(int other){

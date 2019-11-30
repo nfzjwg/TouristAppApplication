@@ -1,20 +1,6 @@
 <div class="back">
-    <section id="login" class="container">
-      <h1 class="text-center">Login</h1>
-      <form class="form" [formGroup]="loginForm" (ngSubmit)="login()">
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input type="text" class="form-control" id="username" autocomplete="off" formControlName="username" />
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" class="form-control" id="password" formControlName="password" />
-        </div>
-       
-        <div class="button-holder text-center">
-      <input type="submit" class="btn btn-primary" value="Login" />
-        </div>
-      </form>
-    </section>
-    </div>
-    
+  <div class="button-holder text-center">
+    <input type="button" (click) ="redi()" class="btn btn-primary" value="Login with Facebook" />
+  </div>
+</div>
+  

@@ -30,6 +30,21 @@ import { UsersComponent } from './pages/users/users.component';
 import { EditMotobikeComponent } from './pages/edit-motobike/edit-motobike.component';
 import { ToastrModule } from 'ngx-toastr'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider } from 'angularx-social-login';
+import {
+  MatIconModule,
+  MatButtonModule,
+  MatCardModule } from '@angular/material';
+const config = new AuthServiceConfig([
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider('749820498776827')
+  }
+]);
+
+export function provideConfig() {
+  return config;
+}
 
 @NgModule({
   declarations: [
@@ -68,11 +83,20 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CommonModule,
     RatingModule,
     ToastrModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    SocialLoginModule,
+    MatIconModule,
+    MatButtonModule,
+    MatCardModule
     
      
   ],
-  providers: [],
+  providers: [
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -2,7 +2,7 @@
     <div class="row">
         <app-profile-data class="col-2"></app-profile-data>
         <app-profile-messages class="col-5"></app-profile-messages>
-        <app-profile-favourites class="col-5"></app-profile-favourites>
+        <app-profile-favourites class="col-5" *ngIf="userService.isAdmin() == false"></app-profile-favourites>
     </div>
   </div>
   

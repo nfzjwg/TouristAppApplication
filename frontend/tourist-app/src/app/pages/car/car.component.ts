@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { FavouriteService } from 'src/app/services/Favourite/favourite.service';
 import { MessageService } from 'src/app/services/Message/message.service';
 import { ToastrService } from 'ngx-toastr';
+import { User } from 'src/app/classes/User';
 
 @Component({
   selector: 'app-car',
@@ -16,6 +17,7 @@ import { ToastrService } from 'ngx-toastr';
 export class CarComponent implements OnInit {
   cars : Car[]
   car : Car
+  user: User[]
   private userService :UserService
   private rentService : RentService
   private messageService : MessageService
@@ -29,6 +31,8 @@ export class CarComponent implements OnInit {
   async ngOnInit() {
     this.cars = await this.carService.getCars()
     console.log(this.cars)
+    this.user = await this.userService.getUsers()
+    console.log(this.user)
   }
   rentCar(id :number){
   

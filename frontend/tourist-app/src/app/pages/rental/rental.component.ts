@@ -32,7 +32,7 @@ export class RentalComponent implements OnInit {
   }
   returnRentedItem(id : number){
     this.rentService.returnRentedItem(id)
-    this.router.navigate(['home']);
+    window.location.reload();
   }
   createBill(id : number, rentID :number){
     for( var i in this.rents){
@@ -95,7 +95,6 @@ export class RentalComponent implements OnInit {
         this.toastrService.error("Error!","Rating")
       }
     })
-    console.log("updated")
   }
 }
 

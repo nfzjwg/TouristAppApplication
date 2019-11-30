@@ -10,6 +10,7 @@ import { User } from 'src/app/classes/User';
 })
 export class LoginComponent implements OnInit {
   loginForm : FormGroup
+  helper : Map<String,String>
   constructor(private fb : FormBuilder, private router : Router, private userService : UserService) { 
     this.loginForm= this.fb.group({
       username: ["", Validators.required],
@@ -17,9 +18,12 @@ export class LoginComponent implements OnInit {
     });
   }
 
-   ngOnInit() {
+  ngOnInit() {
   }
-
+   redi(){
+    this.userService.redirectAfterLogin()
+  }
+ 
   login(){
     if(this.loginForm.invalid){
       console.log("hiba")
