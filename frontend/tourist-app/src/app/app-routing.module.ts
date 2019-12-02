@@ -38,7 +38,7 @@ const routes: Routes = [
   { path : "users" , component : UsersComponent},
   { path : "editCar" , component : CarEditComponent},
   { path : "editMotobike" , component : EditMotobikeComponent},
-  { path : "login" , component : FacebookComponent}
+  { path : "login/facebook" , component : FacebookComponent}
 
   
 ];
