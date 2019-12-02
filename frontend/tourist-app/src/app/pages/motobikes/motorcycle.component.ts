@@ -15,10 +15,10 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class MotorcycleComponent implements OnInit {
   motobikes : Motobike[]
-  private userService :UserService
-  private rentService : RentService
-  private messageService : MessageService
-  private favouriteService : FavouriteService
+  userService :UserService
+  rentService : RentService
+  messageService : MessageService
+  favouriteService : FavouriteService
   constructor(private router : Router, private motobikeService : MotobikeService, rentService : RentService,
      userService :UserService, messageService : MessageService, favouriteService : FavouriteService, private toastrService : ToastrService ) { 
     this.userService = userService;

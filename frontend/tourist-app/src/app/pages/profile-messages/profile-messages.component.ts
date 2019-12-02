@@ -18,7 +18,7 @@ export class ProfileMessagesComponent implements OnInit {
   reciver : User
   sender : User
   
-  private userService : UserService;
+  userService : UserService;
   private messageService : MessageService;
   constructor(private router : Router, userService : UserService,  messageService : MessageService) { 
     this.userService = userService;

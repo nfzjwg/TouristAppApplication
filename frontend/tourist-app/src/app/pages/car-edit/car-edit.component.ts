@@ -19,8 +19,11 @@ export class CarEditComponent implements OnInit {
   engine :string;
   ccm:number;
   ac:boolean;
-  
-  constructor(private fb: FormBuilder,private router: Router,private userService: UserService,private carService : CarService) {     
+  userService : UserService;
+  carService: CarService
+  constructor(private fb: FormBuilder,private router: Router, userService: UserService, carService : CarService) {  
+    this.userService= userService;
+    this.carService=carService;   
     this.editCarForm = this.fb.group({
       manufacturer : [""],
       model : [""],

@@ -35,6 +35,7 @@ import {
   MatIconModule,
   MatButtonModule,
   MatCardModule } from '@angular/material';
+import { FacebookComponent } from './pages/facebook/facebook.component';
 const config = new AuthServiceConfig([
   {
     id: FacebookLoginProvider.PROVIDER_ID,
@@ -70,7 +71,8 @@ export function provideConfig() {
     ReceiptComponent,
     CarEditComponent,
     UsersComponent,
-    EditMotobikeComponent
+    EditMotobikeComponent,
+    FacebookComponent
   ],
   imports: [
     

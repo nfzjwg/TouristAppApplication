@@ -26,9 +26,10 @@ export class UserService {
     private localStorage: LocalStorageService
   ){}
   loginWithFacebook(){
-    return this.http.get("http://localhost:8080/facebook").toPromise()      
+    return this.http.get("http://localhost:8080/login").toPromise()      
   }
   redirectAfterLogin(){
+    console.log("redi")
     this.loginWithFacebook().then(()=>{
       this.http.get("http://localhost:8080/users/user").toPromise()
     });

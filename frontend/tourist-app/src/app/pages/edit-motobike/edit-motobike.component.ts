@@ -16,8 +16,12 @@ export class EditMotobikeComponent implements OnInit {
   manufacturer: string;
   model:string;
   ccm:number;
+  userService: UserService
+  bikeService : MotobikeService
 
-  constructor(private fb: FormBuilder,private router: Router,private userService: UserService,private bikeService : MotobikeService) {     
+  constructor(private fb: FormBuilder,private router: Router, userService: UserService, bikeService : MotobikeService) {     
+    this.userService=userService
+    this.bikeService=bikeService
     this.editBikeForm = this.fb.group({
       manufacturer : [""],
       model : [""],

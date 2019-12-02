@@ -17,8 +17,8 @@ export class RentalComponent implements OnInit {
   rents : Rent[]
   rent : Rent 
   months : Number[]
-  private userService : UserService
-  private rentService : RentService
+   userService : UserService
+   rentService : RentService
   constructor( private router : Router ,rentService : RentService,  userService : UserService, 
     private receiptService : ReceiptService,private toastrService : ToastrService) {
     this.rentService = rentService;

@@ -99,11 +99,10 @@ public class UserController {
   @PostMapping("/register")
   public ResponseEntity<User> register(@RequestBody User user) {
     User newUser;
-    System.out.println("USERNAME"+ user.getEmail());
-    Optional<User> optionalAppUser = userRepository.findByUsername(user.getUsername());
-    if (optionalAppUser.isPresent()) {
-      return ResponseEntity.badRequest().build();
-    }
+    System.out.println("username"+ user.getUsername());
+    System.out.println("id"+ user.getClientID());
+    System.out.println("EMAIL"+ user.getEmail());
+    System.out.println("Role"+ user.getRole());
     newUser=userRepository.saveAndFlush(user);
     System.out.println("user saved");
     return  ResponseEntity.ok(newUser);

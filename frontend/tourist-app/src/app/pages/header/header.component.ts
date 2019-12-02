@@ -8,7 +8,7 @@ import { LocalStorageService } from 'src/app/services/Local Storage/local-storag
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  private userService : UserService
+  userService : UserService
 
   constructor(userService : UserService, private localStorageData : LocalStorageService) { 
     this.userService = userService

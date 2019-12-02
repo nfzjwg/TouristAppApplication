@@ -14,9 +14,12 @@ import { MessageService } from 'src/app/services/Message/message.service';
 })
 export class UsersComponent implements OnInit {
   users : User[]
-  constructor(private userService :UserService,private bikeService : MotobikeService,
+  userService :UserService
+  constructor( userService :UserService,private bikeService : MotobikeService,
     private carService : CarService, private rentService : RentService,
-    private favouriteService :FavouriteService,private messageService : MessageService) { }
+    private favouriteService :FavouriteService,private messageService : MessageService) {
+      this.userService= userService;
+     }
 
 
 

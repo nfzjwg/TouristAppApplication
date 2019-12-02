@@ -17,6 +17,7 @@ import { ReceiptComponent } from './pages/receipt/receipt.component';
 import { UsersComponent } from './pages/users/users.component';
 import { CarEditComponent } from './pages/car-edit/car-edit.component';
 import { EditMotobikeComponent } from './pages/edit-motobike/edit-motobike.component';
+import { FacebookComponent } from './pages/facebook/facebook.component';
 
 
 
@@ -36,7 +37,8 @@ const routes: Routes = [
   { path : "receipts" , component : ReceiptComponent},
   { path : "users" , component : UsersComponent},
   { path : "editCar" , component : CarEditComponent},
-  { path : "editMotobike" , component : EditMotobikeComponent}
+  { path : "editMotobike" , component : EditMotobikeComponent},
+  { path : "login" , component : FacebookComponent}
 
   
 ];
