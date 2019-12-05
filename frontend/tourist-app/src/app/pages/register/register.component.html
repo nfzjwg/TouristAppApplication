@@ -1,32 +1,91 @@
-<div class="back">
-    <section id="register" class="container">
-      <h1 class="text-center">Register</h1>
-      <form class="form" [formGroup]="registerForm" (ngSubmit)="register()">
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input type="text" class="form-control" id="username" autocomplete="off" formControlName="username" />
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>Demo</title>
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width"/>
+    <base href="/"/>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/webjars/js-cookie/js.cookie.js"></script>
+</head>
+<body>
+    <div class="back">
+        <section id="register" class="container">
+          <h1 class="text-center">Register</h1>
+          <form class="form" [formGroup]="registerForm" (ngSubmit)="register()">
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" class="form-control" id="username" autocomplete="off" formControlName="username" />
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="text" pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*[.][a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+$" class="form-control" id="email" formControlName="email" />
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" id="password" formControlName="password" />
+            </div>
+            <div class="form-group">
+                <label for="role" >Role</label>
+                <select formControlName ="role" id="role" class="form-control">
+                    <option value="ROLE_GUEST">Guest</option>
+                    <option value="ROLE_COMPANY">Company</option>
+                    <option value="ROLE_ADMIN">Admin</option>
+                </select>
+              </div>
+            <div class="button-holder">
+                <input type="submit" class="btn btn-primary" value ="Register">
+                <input type="button" class="btn btn-primary" value ="Login" routerLink="/users/login">
+            </div>
+          </form>
+        </section>
         </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="text" pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*[.][a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+$" class="form-control" id="email" formControlName="email" />
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" class="form-control" id="password" formControlName="password" />
-        </div>
-        <div class="form-group">
-            <label for="role" >Role</label>
-            <select formControlName ="role" id="role" class="form-control">
-                <option value="ROLE_GUEST">Guest</option>
-                <option value="ROLE_COMPANY">Company</option>
-                <option value="ROLE_ADMIN">Admin</option>
-            </select>
-          </div>
-        <div class="button-holder">
-            <input type="submit" class="btn btn-primary" value ="Register">
-            <input type="button" class="btn btn-primary" value ="Login" routerLink="/users/login">
-        </div>
-      </form>
-    </section>
+	<h1>Demo</h1>
+    <div class="container"></div>
+    <div class="container unauthenticated">
+        With Facebook: <a href="/login">click here</a>
     </div>
+    <div class="container authenticated" style="display:none">
+        Logged in as: <span id="user"></span>
+        <div>
+            <button onClick="logout()" class="btn btn-primary">Logout</button>
+            <a href="/home">Continue</a>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    $.get("/users/user", function(data) {
+        $("#user").html(data.userAuthentication.details.name);
+        $(".unauthenticated").hide()
+        $(".authenticated").show()
+    });
     
+    var logout = function() {
+    $.post("/logout", function() {
+        $("#user").html('');
+        $(".unauthenticated").show();
+        $(".authenticated").hide();
+        window.location.href = '/home';
+    })
+    return true;
+    }
+    $.ajaxSetup({
+beforeSend : function(xhr, settings) {
+  if (settings.type == 'POST' || settings.type == 'PUT'
+      || settings.type == 'DELETE') {
+    if (!(/^http:.*/.test(settings.url) || /^https:.*/
+        .test(settings.url))) {
+      // Only send the token to relative URLs i.e. locally.
+      xhr.setRequestHeader("X-XSRF-TOKEN",
+          Cookies.get('XSRF-TOKEN'));
+    }
+  }
+}
+});
+</script>
+</html>
+

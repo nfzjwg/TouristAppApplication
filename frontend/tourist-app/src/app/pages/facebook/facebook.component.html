@@ -13,6 +13,26 @@
     <script type="text/javascript" src="/webjars/js-cookie/js.cookie.js"></script>
 </head>
 <body>
+  <!--
+        <script>
+                window.fbAsyncInit = function() {
+                  FB.init({
+                    appId      : '749820498776827',
+                    xfbml      : true,
+                    version    : 'v5.0'
+                  });
+                  FB.AppEvents.logPageView();
+                };
+              
+                (function(d, s, id){
+                   var js, fjs = d.getElementsByTagName(s)[0];
+                   if (d.getElementById(id)) {return;}
+                   js = d.createElement(s); js.id = id;
+                   js.src = "https://connect.facebook.net/en_US/sdk.js";
+                   fjs.parentNode.insertBefore(js, fjs);
+                 }(document, 'script', 'facebook-jssdk'));
+              </script>
+            -->
 	<h1>Demo</h1>
     <div class="container"></div>
     <div class="container unauthenticated">
@@ -28,7 +48,7 @@
 </body>
 <script type="text/javascript">
     $.get("/users/user", function(data) {
-        $("#user").html(data.name);
+        $("#user").html(data.userAuthentication.details.name);
         $(".unauthenticated").hide()
         $(".authenticated").show()
     });

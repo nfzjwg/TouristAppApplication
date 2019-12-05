@@ -36,10 +36,7 @@ public class TouristAppApplication extends WebSecurityConfigurerAdapter{
             .antMatchers("/", "/login**", "/webjars/**", "/error**")
             .permitAll()
         .anyRequest()
-            .authenticated()
-            .and().logout().logoutSuccessUrl("/").permitAll()
-            .and().csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).
-            and().cors();
+            .authenticated();
     }
     @Override
 	public void configure(WebSecurity web) throws Exception {

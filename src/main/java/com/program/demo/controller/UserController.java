@@ -12,6 +12,7 @@ import com.program.demo.repositories.UserRepository;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -30,15 +31,19 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Controller class for the User entity.
  */
+@EnableOAuth2Sso
 @CrossOrigin
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
   @Autowired private UserRepository userRepository;
-
-
-	@RequestMapping("/user")
+  
+  @RequestMapping("/user")
+  public Principal user(Principal user){
+    return user;
+  }
+	/*@RequestMapping("/user")
 	public Map<String,String> user(OAuth2Authentication auth2Authentication) {
     Map<String,String> details = (Map<String,String>) auth2Authentication.getUserAuthentication().getDetails();
     ;
@@ -65,7 +70,7 @@ public class UserController {
     }
 
     return details;
-	}
+	}*/
 
 
   /**
